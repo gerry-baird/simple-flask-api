@@ -1,20 +1,18 @@
 from flask import Flask
 import logging
+import os
+
+logging.basicConfig(level=logging.DEBUG)
+#port = int(os.getenv("PORT", 8080))
 
 app = Flask(__name__)
 
-logger = logging.getLogger(__name__)
-formatter = logging.Formatter('%(asctime)s %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s')
-file_handler = logging.FileHandler('grump.log')
-file_handler.setFormatter(formatter)
-logger.addHandler(file_handler)
-logger.setLevel(logging.DEBUG)
-
 @app.route('/')
 def hello_world():  # put application's code here
-    logger.info('Root APi called : Hello World returned')
+    msg = 'Root APi called : Hello World returned'
+    logging.info(msg)
     return 'Hello World!'
 
 
-if __name__ == '__main__':
-    app.run()
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
